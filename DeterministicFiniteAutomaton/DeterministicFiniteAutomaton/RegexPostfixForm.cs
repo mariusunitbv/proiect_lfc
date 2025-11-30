@@ -2,18 +2,18 @@
 
 namespace DeterministicFiniteAutomaton
 {
-    class RegexPostfixForm
+    static class RegexPostfixForm
     {
-        static bool IsOperator(char c)
+        static public bool IsOperator(char c)
         {
             return c == '*' || c == '.' || c == '|';
         }
 
-        static bool IsOperand(char c)
+        static public bool IsOperand(char c)
         {
-            return (c >= 'a' && c <= 'z') ||
-                   (c >= 'A' && c <= 'Z') ||
-                   (c >= '0' && c <= '9');
+            return ('a' <= c && c <= 'z') ||
+                   ('A' <= c && c <= 'Z') ||
+                   ('0' <= c && c <= '9');
         }
 
         static int Priority(char op)
@@ -24,6 +24,7 @@ namespace DeterministicFiniteAutomaton
                 case '.': return 2;
                 case '|': return 1;
             }
+
             return 0;
         }
 
@@ -31,7 +32,7 @@ namespace DeterministicFiniteAutomaton
         {
             StringBuilder expr = new StringBuilder();
 
-            for (int i = 1; i < str.Length; i++)
+            for (int i = 1; i < str.Length; ++i)
             {
                 expr.Append(str[i - 1]);
 
